@@ -11,6 +11,8 @@ import { AuthContext } from '../Auth/AuthContext';
 import Rating from '../UI/Rating';
 import ReplyCreate from '../Replies/ReplyCreate';
 import ReplyList from '../Replies/ReplyList';
+import { getAvatarUrl } from '../../utils/helpers';
+
 
 const MessageCard = ({ message, onDelete }) => {
     const { user, isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -124,7 +126,7 @@ const MessageCard = ({ message, onDelete }) => {
                 <Card.Header className="d-flex justify-content-between align-items-center bg-light">
                     <div className="d-flex align-items-center">
                         <Image
-                            src={message.avatar_url || 'https://via.placeholder.com/40'}
+                            src={getAvatarUrl(user.avatar_url)}
                             roundedCircle
                             width={40}
                             height={40}

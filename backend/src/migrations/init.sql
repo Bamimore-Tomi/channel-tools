@@ -72,4 +72,4 @@ CREATE TABLE IF NOT EXISTS ratings (
 
 -- Insert Admin User (username: admin, password: admin123)
 INSERT INTO users (username, password, display_name, role)
-VALUES ('admin', '$2b$10$3euPuR1QxDGONEXVK7LM8O2hIGQMX80YLnjxwXH0tZEuUOH6rQ6XW', 'System Administrator', 'admin');
+VALUES ('admin', '$2b$10$nRs9CoaYc2rT96577yp0vuPltqxtQUEtvlQPKFKU4yuOIIXMD2A4q', 'System Administrator', 'admin');

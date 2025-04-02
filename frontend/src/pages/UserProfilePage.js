@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FaUser, FaComments, FaReply, FaThumbsUp, FaThumbsDown, FaClock } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 import api from '../utils/api';
+import { getAvatarUrl } from '../utils/helpers';
 
 const UserProfilePage = () => {
     const { userId } = useParams();
@@ -83,7 +84,7 @@ const UserProfilePage = () => {
                     <Card className="shadow-sm">
                         <Card.Body className="text-center">
                             <Image
-                                src={user.avatar_url || 'https://via.placeholder.com/150'}
+                                src={getAvatarUrl(user.avatar_url)}
                                 roundedCircle
                                 width={150}
                                 height={150}

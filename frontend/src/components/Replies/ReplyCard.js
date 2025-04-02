@@ -11,6 +11,8 @@ import { AuthContext } from '../Auth/AuthContext';
 import Rating from '../UI/Rating';
 import ReplyCreate from './ReplyCreate';
 import ReplyList from './ReplyList';
+import { getAvatarUrl } from '../../utils/helpers';
+
 
 const ReplyCard = ({ reply, onDelete, onReplyCreated }) => {
     const { user, isAuthenticated, isAdmin } = useContext(AuthContext);
@@ -128,7 +130,7 @@ const ReplyCard = ({ reply, onDelete, onReplyCreated }) => {
                     <div className="d-flex">
                         <div className="me-2">
                             <Image
-                                src={reply.avatar_url || 'https://via.placeholder.com/30'}
+                                src={getAvatarUrl(user.avatar_url)}
                                 roundedCircle
                                 width={30}
                                 height={30}

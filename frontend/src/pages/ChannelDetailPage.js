@@ -5,7 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import api from '../utils/api';
 import { AuthContext } from '../components/Auth/AuthContext';
-import MessageList from '../components/Messages/MessageList';
+import MessageCard from '../components/Messages/MessageCard';
 import MessageCreate from '../components/Messages/MessageCreate';
 
 const ChannelDetailPage = () => {
@@ -13,31 +13,58 @@ const ChannelDetailPage = () => {
     const { isAuthenticated } = useContext(AuthContext);
 
     const [channel, setChannel] = useState(null);
+    const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [showMessageForm, setShowMessageForm] = useState(false);
 
-    // Fetch channel details
+    // Fetch channel details and messages
     useEffect(() => {
-        const fetchChannel = async () => {
+        const fetchChannelData = async () => {
             try {
                 setLoading(true);
-                const response = await api.get(`/api/channels/${channelId}`);
-                setChannel(response.data.channel);
+
+                // Fetch channel details
+                const channelResponse = await api.get(`/api/channels/${channelId}`);
+                setChannel(channelResponse.data.channel);
+
+                // Fetch messages for this channel
+                await fetchMessages();
             } catch (error) {
-                console.error('Error fetching channel:', error);
+                console.error('Error fetching channel data:', error);
                 setError('Failed to load channel. Please try again.');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchChannel();
+        fetchChannelData();
     }, [channelId]);
 
+    // Function to fetch messages (can be called after posting a new message)
+    const fetchMessages = async () => {
+        try {
+            const messagesResponse = await api.get(`/api/messages/channel/${channelId}`);
+            setMessages(messagesResponse.data.messages);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            setError('Failed to load messages. Please try again.');
+        }
+    };
+
     // Handle new message creation
-    const handleMessageCreated = () => {
+    const handleMessageCreated = async () => {
+        // Hide the message form
         setShowMessageForm(false);
+
+        // Fetch the updated list of messages to include the new one
+        await fetchMessages();
+    };
+
+    // Handle message deletion
+    const handleMessageDeleted = (messageId) => {
+        // Remove the deleted message from state
+        setMessages(messages.filter(message => message.id !== messageId));
     };
 
     if (loading) {
@@ -52,9 +79,14 @@ const ChannelDetailPage = () => {
 
     if (error || !channel) {
         return (
-            <Alert variant="danger" className="my-3">
-                {error || 'Channel not found'}
-            </Alert>
+            <Container>
+                <Alert variant="danger" className="my-3">
+                    {error || 'Channel not found'}
+                </Alert>
+                <Link to="/channels" className="btn btn-primary">
+                    <FaArrowLeft className="me-1" /> Back to Channels
+                </Link>
+            </Container>
         );
     }
 
@@ -97,8 +129,22 @@ const ChannelDetailPage = () => {
                 </div>
             )}
 
-            {/* Message List */}
-            <MessageList channelId={channelId} />
+            {/* Messages List */}
+            {messages.length === 0 ? (
+                <Alert variant="info">
+                    No messages in this channel yet. Be the first to post a question!
+                </Alert>
+            ) : (
+                <div>
+                    {messages.map(message => (
+                        <MessageCard
+                            key={message.id}
+                            message={message}
+                            onDelete={handleMessageDeleted}
+                        />
+                    ))}
+                </div>
+            )}
         </Container>
     );
 };

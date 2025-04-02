@@ -126,7 +126,7 @@ const MessageCard = ({ message, onDelete }) => {
                 <Card.Header className="d-flex justify-content-between align-items-center bg-light">
                     <div className="d-flex align-items-center">
                         <Image
-                            src={getAvatarUrl(user.avatar_url)}
+                            src={getAvatarUrl(user?.avatar_url)}
                             roundedCircle
                             width={40}
                             height={40}

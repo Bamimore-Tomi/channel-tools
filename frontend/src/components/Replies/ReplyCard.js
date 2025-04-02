@@ -130,7 +130,7 @@ const ReplyCard = ({ reply, onDelete, onReplyCreated }) => {
                     <div className="d-flex">
                         <div className="me-2">
                             <Image
-                                src={getAvatarUrl(user.avatar_url)}
+                                src={getAvatarUrl(user?.avatar_url)}
                                 roundedCircle
                                 width={30}
                                 height={30}

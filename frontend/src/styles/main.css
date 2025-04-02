@@ -1,0 +1,125 @@
+/* frontend/src/styles/main.css */
+
+/* Global Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f8f9fa;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+/* Utility Classes */
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+/* Message and Reply Styling */
+.message-content img,
+.reply-content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.reply-card {
+    margin-left: 20px;
+    border-left: 3px solid #dee2e6;
+    padding-left: 15px;
+}
+
+.nested-reply {
+    margin-left: 40px;
+}
+
+/* Code block styling */
+pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+/* Avatar styling */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-sm {
+    width: 30px;
+    height: 30px;
+}
+
+.avatar-lg {
+    width: 80px;
+    height: 80px;
+}
+
+/* Rating component */
+.rating-buttons button {
+    transition: all 0.2s ease;
+}
+
+.rating-buttons button:hover {
+    transform: scale(1.1);
+}
+
+.rated-up {
+    color: #28a745;
+}
+
+.rated-down {
+    color: #dc3545;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .reply-card {
+        margin-left: 10px;
+    }
+
+    .nested-reply {
+        margin-left: 20px;
+    }
+}

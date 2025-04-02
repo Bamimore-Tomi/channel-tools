@@ -19,17 +19,17 @@ let pool;
 const createConnection = async () => {
   try {
     pool = mysql.createPool(dbConfig);
-    
+
     // Test connection
     const connection = await pool.getConnection();
     console.log('Database connected successfully');
     connection.release();
-    
+
     return pool;
   } catch (error) {
     console.error('Database connection failed:', error.message);
     // Try again after a delay
-    setTimeout(createConnection, 5000);
+    setTimeout(createConnection, 6000);
   }
 };
 

@@ -1,15 +1,24 @@
 # Dockerfile.backend
 FROM node:18-alpine
 
+# Install dependencies required for bcrypt
+RUN apk add --no-cache --virtual .gyp \
+    python3 \
+    make \
+    g++
+
 WORKDIR /app
 
 COPY ./backend/package*.json ./
 
+# Install dependencies
 RUN npm install
+
+# Remove build dependencies to keep the image smaller
+RUN apk del .gyp
 
 COPY ./backend .
 
 EXPOSE 5000
 
 CMD ["npm", "start"]
-

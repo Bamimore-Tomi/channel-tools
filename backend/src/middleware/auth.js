@@ -11,24 +11,24 @@ const authenticateToken = async (req, res, next) => {
     // Get token from Authorization header
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    
+
     if (!token) {
       return res.status(401).json({ message: 'No token provided' });
     }
-    
+
     // Verify token
     jwt.verify(token, JWT_SECRET, async (err, decoded) => {
       if (err) {
         return res.status(403).json({ message: 'Invalid or expired token' });
       }
-      
+
       // Check if user exists in the database
       const users = await query('SELECT * FROM users WHERE id = ?', [decoded.id]);
-      
+
       if (!users.length) {
         return res.status(404).json({ message: 'User not found' });
       }
-      
+
       // Store user object in the request
       req.user = users[0];
       next();
@@ -61,4 +61,4 @@ module.exports = {
   authenticateToken,
   isAdmin,
   generateToken
-};
+}; 
